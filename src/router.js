@@ -3,6 +3,9 @@ import Router from "vue-router";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Main from "./views/Main.vue";
+import ViewMovie from "./views/ViewMovie.vue";
+import Moderator from "./views/Moderator.vue";
+import EditMovie from "./views/EditMovie.vue";
 import firebase from "firebase";
 
 Vue.use(Router);
@@ -29,6 +32,30 @@ let router = new Router({
       path: "/",
       name: "Main",
       component: Main,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/movie/:movie_id",
+      name: "ViewMovie",
+      component: ViewMovie,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/edit/:movie_id",
+      name: "EditMovie",
+      component: EditMovie,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/moderator",
+      name: "Moderator",
+      component: Moderator,
       meta: {
         requiresAuth: true
       }

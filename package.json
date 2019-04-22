@@ -10,8 +10,10 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "firebase": "^5.9.3",
+    "npm": "^6.9.0",
     "vue": "^2.6.6",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuetify": "^1.5.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",

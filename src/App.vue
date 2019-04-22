@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <v-app>
     <router-view/>
-  </div>
+  </v-app>
 </template>
 
 <style>
@@ -14,17 +14,7 @@
   --buttonColorFour: rgb(197, 225, 118);
   --alreadyHaveBtn: rgb(130, 144, 165);
 }
-#app {
-  height: 100vh;
-  background-image: linear-gradient(
-    -45deg,
-    var(--firstColor),
-    var(--secondColor)
-  );
-}
 * {
-  padding: 0;
-  margin: 0;
   font-family: "Roboto", sans-serif;
 }
 </style>

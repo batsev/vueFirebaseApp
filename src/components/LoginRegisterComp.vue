@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="myContainer">
     <form>
-      <input v-model="email" type="text" class="myInput" placeholder="Username">
+      <input v-model="email" type="text" class="myInput" placeholder="Email">
       <input v-model="password" type="password" class="myInput" placeholder="Password">
       <button v-on:click="$emit('pass-values', email, password)" :class="msg1">{{ msg1 }}</button>
       <router-link :to="msg3">
@@ -27,6 +27,16 @@ export default {
 </script>
 
 <style>
+.myContainer {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  background-image: linear-gradient(
+    -45deg,
+    var(--firstColor),
+    var(--secondColor)
+  );
+}
 form {
   user-select: none;
   display: flex;
@@ -38,16 +48,17 @@ form {
   height: 100vh;
 }
 .myInput {
+  background-color: white;
   font-size: 0.9rem;
   height: 3rem;
-  width: 18rem;
+  width: 19rem;
   padding: 0 0.5rem;
   margin: 0.5rem;
   border: none;
   outline: none;
   border-radius: 1.5rem;
 }
-input::placeholder {
+.myInput::placeholder {
   opacity: 0.5;
   text-align: center;
 }

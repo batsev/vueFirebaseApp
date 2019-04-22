@@ -1,7 +1,11 @@
 import Vue from "vue";
+import Vuetify from "vuetify";
 import App from "./App.vue";
 import router from "./router";
 import firebase from "firebase";
+import "firebase/firestore";
+import "vuetify/dist/vuetify.min.css";
+Vue.use(Vuetify);
 
 Vue.config.productionTip = false;
 
@@ -16,7 +20,7 @@ var config = {
 firebase.initializeApp(config);
 
 let app;
-firebase.auth().onAuthStateChanged(user => {
+firebase.auth().onAuthStateChanged(() => {
   if (!app) {
     app = new Vue({
       router,
@@ -24,3 +28,9 @@ firebase.auth().onAuthStateChanged(user => {
     }).$mount("#app");
   }
 });
+
+// 1 - Форма чтобы не написали чего не надо
+// 2 - Функция поиска
+// 3 - Фильтр по жанру
+// 4 - добавление в любимые
+// 5 - Навбар - складывающийся

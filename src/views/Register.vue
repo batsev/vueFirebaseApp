@@ -22,8 +22,7 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(
-          user => {
-            console.log(user);
+          () => {
             alert(`Account created`);
             this.$router.push("/");
           },
