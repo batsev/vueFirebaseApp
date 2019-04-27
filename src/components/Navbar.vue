@@ -11,12 +11,11 @@
           slot="activator"
         >Filter By Genre</v-btn>
         <v-list>
-          <v-list-tile v-for="genre in genres" :key="genre" @click>
+          <v-list-tile v-for="genre in genres" :key="genre" @click="filterMovies(genre)">
             <v-list-tile-title style="text-transform: capitalize;">{{ genre }}</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
-      <!-- <v-select :items="genres" box label="Box style"></v-select> -->
       <v-btn
         class="hidden-sm-and-down"
         flat
@@ -76,6 +75,9 @@ export default {
         .then(() => {
           this.$router.push("/login");
         });
+    },
+    filterMovies(genre) {
+      this.$store.commit("setMovie", genre);
     }
   }
 };

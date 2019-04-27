@@ -3,6 +3,7 @@ import Vuetify from "vuetify";
 import App from "./App.vue";
 import router from "./router";
 import firebase from "firebase";
+import store from "./store";
 import "firebase/firestore";
 import "vuetify/dist/vuetify.min.css";
 Vue.use(Vuetify);
@@ -23,6 +24,7 @@ let app;
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
     app = new Vue({
+      store,
       router,
       render: h => h(App)
     }).$mount("#app");
@@ -33,4 +35,3 @@ firebase.auth().onAuthStateChanged(() => {
 // 2 - Функция поиска
 // 3 - Фильтр по жанру
 // 4 - добавление в любимые
-// 5 - Навбар - складывающийся

@@ -8,9 +8,16 @@
     <v-form style="justify-content: flex-start;">
       <v-text-field disabled class="formInput" v-model="movie_id" label="Movie ID" required></v-text-field>
       <v-text-field class="formInput" v-model="name" label="Name" required></v-text-field>
-      <v-text-field class="formInput" v-model="genre" label="Genre" required></v-text-field>
-      <v-text-field class="formInput" v-model="rating" label="Rating" required></v-text-field>
-      <v-text-field class="formInput" v-model="about" label="About" required></v-text-field>
+      <v-text-field :rules="genreRules" class="formInput" v-model="genre" label="Genre" required></v-text-field>
+      <v-slider
+        label="Movie rating"
+        max="5"
+        style="width: 50%; flex: none !important;"
+        step="0.1"
+        thumb-label="always"
+        v-model="rating"
+      ></v-slider>
+      <v-textarea class="formInput" v-model="about" label="About" required></v-textarea>
       <v-text-field class="formInput" v-model="img_url" label="Image URL" required></v-text-field>
       <div>
         <v-btn :to="`/movie/${movie_id}`" color="grey darken-2" dark>
@@ -44,8 +51,11 @@ export default {
     name: "",
     about: "",
     genre: "",
-    rating: "",
-    img_url: ""
+    rating: null,
+    img_url: "",
+    genreRules: [
+      v => /^[a-zA-Z\s\,]*$/.test(v) || "Genres should be divided by comma"
+    ]
   }),
   methods: {
     updateMovie() {
@@ -61,7 +71,7 @@ export default {
                 name: this.name,
                 about: this.about,
                 genre: this.genre,
-                rating: this.rating,
+                rating: this.rating.toString(),
                 imgUrl: this.img_url
               })
               .then(() => {
@@ -81,7 +91,7 @@ export default {
             this.name = doc.data().name;
             this.about = doc.data().about;
             this.genre = doc.data().genre;
-            this.rating = doc.data().rating;
+            this.rating = parseFloat(doc.data().rating);
             this.img_url = doc.data().imgUrl;
           });
         });
@@ -110,7 +120,7 @@ export default {
             vm.movie_id = doc.data().movie_id;
             vm.name = doc.data().name;
             vm.about = doc.data().about;
-            vm.rating = doc.data().rating;
+            vm.rating = parseFloat(doc.data().rating);
             vm.genre = doc.data().genre;
             vm.img_url = doc.data().imgUrl;
           });

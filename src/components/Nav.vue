@@ -1,8 +1,8 @@
 <template>
   <div class="myJumbotron">
-    <span>Cool</span>
+    <span class="myNav">Cool</span>
     <img src="../assets/noun_Movie.png" style="height: 130px;" alt="movieLogo">
-    <span>Flicks</span>
+    <span class="myNav">Flicks</span>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style>
-span {
+.myNav {
   font-size: 3.5rem;
 }
 .myJumbotron {

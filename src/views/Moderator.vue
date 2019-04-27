@@ -8,9 +8,16 @@
     <v-form style="justify-content: flex-start;">
       <v-text-field class="formInput" v-model="movie_id" label="Movie ID" required></v-text-field>
       <v-text-field class="formInput" v-model="name" label="Name" required></v-text-field>
-      <v-text-field class="formInput" v-model="genre" label="Genre" required></v-text-field>
-      <v-text-field class="formInput" v-model="rating" label="Rating" required></v-text-field>
-      <v-text-field class="formInput" v-model="about" label="About" required></v-text-field>
+      <v-text-field :rules="genreRules" class="formInput" v-model="genre" label="Genre" required></v-text-field>
+      <v-slider
+        label="Movie rating"
+        max="5"
+        style="width: 50%; flex: none !important;"
+        step="0.1"
+        thumb-label="always"
+        v-model="rating"
+      ></v-slider>
+      <v-textarea class="formInput" v-model="about" label="About" required></v-textarea>
       <v-text-field class="formInput" v-model="img_url" label="Image URL" required></v-text-field>
       <v-btn @click="submit" color="blue darken-2" dark>
         Add movie
@@ -34,8 +41,11 @@ export default {
     name: "",
     about: "",
     genre: "",
-    rating: "",
-    img_url: ""
+    rating: 5,
+    img_url: "",
+    genreRules: [
+      v => /^[a-zA-Z\s\,]*$/.test(v) || "Genres should be divided by comma"
+    ]
   }),
   methods: {
     submit() {
@@ -46,7 +56,7 @@ export default {
           name: this.name,
           about: this.about,
           genre: this.genre,
-          rating: this.rating,
+          rating: this.rating.toString(),
           imgUrl: this.img_url
         })
         .then(() => {
@@ -61,6 +71,7 @@ export default {
 .formInput {
   flex: none !important;
   width: 50%;
+  margin: 10px 0;
 }
 
 @media (max-width: 768px) {

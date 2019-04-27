@@ -13,6 +13,7 @@ import Nav from "../components/Nav.vue";
 import Navbar from "../components/Navbar.vue";
 import MovieCell from "../components/MovieCell.vue";
 import firebase from "firebase";
+import { mapState } from "vuex";
 export default {
   components: {
     Nav,
@@ -20,22 +21,26 @@ export default {
     MovieCell
   },
   computed: {
-    // getMoviesByGenre() {
-    //   return this.movies.filter(movie => {
-    //     const myGenres = movie.genre.replace(/\s/g, "").split(",");
-    //     return myGenres.includes(this.genre);
-    //   });
-    // },
     filterGenres() {
-      return this.genres.filter((item, index) => {
-        return this.genres.indexOf(item) >= index;
+      return this.genres
+        .filter((item, index) => {
+          return this.genres.indexOf(item) >= index;
+        })
+        .sort();
+    },
+    getMoviesByGenre() {
+      return this.movies.filter(movie => {
+        return movie.genre
+          .replace(/\s/g, "")
+          .split(",")
+          .includes(this.movieGenre);
       });
-    }
+    },
+    ...mapState(["movieGenre"])
   },
   data: () => ({
     movies: [],
-    genres: [],
-    genre: ""
+    genres: []
   }),
   created() {
     var db = firebase.firestore();
