@@ -1,9 +1,9 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <Nav/>
     <Navbar v-bind:genres="filterGenres"/>
     <div class="wrapper">
-      <MovieCell v-bind:key="movie.id" v-for="movie in movies" v-bind:movie="movie"/>
+      <MovieCell v-bind:key="movie.id" v-for="movie in getMoviesByGenre" v-bind:movie="movie"/>
     </div>
   </v-container>
 </template>
@@ -21,6 +21,7 @@ export default {
     MovieCell
   },
   computed: {
+    //Добавление всех жанров в Тулбар
     filterGenres() {
       return this.genres
         .filter((item, index) => {
@@ -28,12 +29,10 @@ export default {
         })
         .sort();
     },
+    //Фильтр по жанрам
     getMoviesByGenre() {
       return this.movies.filter(movie => {
-        return movie.genre
-          .replace(/\s/g, "")
-          .split(",")
-          .includes(this.movieGenre);
+        return movie.genre.match(this.movieGenre);
       });
     },
     ...mapState(["movieGenre"])
@@ -77,7 +76,7 @@ export default {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
 }
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .wrapper {
     padding-top: 1rem;
     display: grid;
