@@ -52,7 +52,7 @@ export default {
     img_url: "",
     genreRules: [
       v =>
-        /^[a-zA-Z][a-zA-Z\s\,]*[a-zA-Z]$/.test(v) ||
+        /^[a-zA-Z][a-zA-Z,]*[a-zA-Z]$/.test(v) ||
         "Genres should be divided by comma"
     ]
   }),
