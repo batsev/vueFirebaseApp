@@ -1,7 +1,7 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <Nav/>
-    <Navbar/>
+    <Navbar v-bind:genres="null"/>
     <div style="text-align: center; padding-top: 2rem;">
       <span style="font-size: 3rem; font-style: italic;">Edit movie</span>
     </div>
@@ -54,7 +54,9 @@ export default {
     rating: null,
     img_url: "",
     genreRules: [
-      v => /^[a-zA-Z\s\,]*$/.test(v) || "Genres should be divided by comma"
+      v =>
+        /^[a-zA-Z][a-zA-Z\s\,]*[a-zA-Z]$/.test(v) ||
+        "Genres should be divided by comma"
     ]
   }),
   methods: {

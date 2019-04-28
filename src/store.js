@@ -5,16 +5,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    movieGenre: ""
+    movieGenre: "",
+    searchValue: ""
   },
   mutations: {
     setMovie(state, payload) {
-      state.movieGenre = payload;
-    }
-  },
-  getters: {
-    movieGenre(state) {
-      return state.movieGenre;
+      state.movieGenre = payload.toLowerCase();
+    },
+    getSearch(state, payload) {
+      state.searchValue = payload.toLowerCase();
     }
   }
 });

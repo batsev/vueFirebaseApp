@@ -3,7 +3,7 @@
     <Nav/>
     <Navbar v-bind:genres="filterGenres"/>
     <div class="wrapper">
-      <MovieCell v-bind:key="movie.id" v-for="movie in getMoviesByGenre" v-bind:movie="movie"/>
+      <MovieCell v-bind:key="movie.id" v-for="movie in getSearch" v-bind:movie="movie"/>
     </div>
   </v-container>
 </template>
@@ -31,15 +31,29 @@ export default {
     },
     //Фильтр по жанрам
     getMoviesByGenre() {
-      return this.movies.filter(movie => {
-        return movie.genre.match(this.movieGenre);
-      });
+      return this.movieGenre == "all"
+        ? this.movies
+        : this.movies.filter(movie => {
+            return movie.genre.includes(this.movieGenre);
+          });
     },
-    ...mapState(["movieGenre"])
+    getSearch() {
+      return this.searchValue == ""
+        ? this.getMoviesByGenre
+        : this.getMoviesByGenre.filter(movie => {
+            return (
+              movie.genre.toLowerCase().includes(this.searchValue) ||
+              movie.name.toLowerCase().includes(this.searchValue) ||
+              movie.rating.toLowerCase().includes(this.searchValue) ||
+              movie.about.toLowerCase().includes(this.searchValue)
+            );
+          });
+    },
+    ...mapState(["movieGenre", "searchValue"])
   },
   data: () => ({
     movies: [],
-    genres: []
+    genres: ["All"]
   }),
   created() {
     var db = firebase.firestore();
@@ -61,7 +75,9 @@ export default {
             .genre.toLowerCase()
             .replace(/\s/g, "")
             .split(",")
-            .forEach(el => this.genres.push(el));
+            .forEach(el => {
+              if (el != "") this.genres.push(el);
+            });
           this.movies.push(data);
         });
       });

@@ -1,6 +1,7 @@
 <template>
   <div class="myContainer">
     <form>
+      <span style="color: white; font-size: 1.5rem">Welcome to Cool Flicks!</span>
       <input v-model="email" type="text" class="myInput" placeholder="Email">
       <input v-model="password" type="password" class="myInput" placeholder="Password">
       <button v-on:click="$emit('pass-values', email, password)" :class="msg1">{{ msg1 }}</button>

@@ -3,14 +3,13 @@
     <v-toolbar flat class="grey lighten-4" height="50">
       <v-toolbar-side-icon @click="drawer= !drawer" class="hidden-md-and-up"></v-toolbar-side-icon>
       <v-btn flat style="text-transform: capitalize; font-size:1.3rem;" to="/">Home</v-btn>
-      <v-btn flat style="text-transform: capitalize; font-size:1.3rem;" to="/mymovies">My Movies</v-btn>
       <v-menu offset-y open-on-hover transition="slide-x-transition">
         <v-btn
           flat
           style="text-transform: capitalize; font-size:1.3rem;"
           slot="activator"
         >Filter By Genre</v-btn>
-        <v-list>
+        <v-list v-if="genres">
           <v-list-tile v-for="genre in genres" :key="genre" @click="filterMovies(genre)">
             <v-list-tile-title style="text-transform: capitalize;">{{ genre }}</v-list-tile-title>
           </v-list-tile>
@@ -21,9 +20,14 @@
         flat
         style="text-transform: capitalize; font-size:1.3rem;"
         to="/moderator"
-      >Moderator</v-btn>
+      >Add Movies</v-btn>
       <v-spacer></v-spacer>
-      <input class="toolbarSearch hidden-sm-and-down" type="text" placeholder="Search..">
+      <input
+        class="toolbarSearch hidden-sm-and-down"
+        v-model="searchInput"
+        type="text"
+        placeholder="Search.."
+      >
       <v-btn
         class="hidden-sm-and-down"
         style="text-transform: capitalize; font-size:1.3rem;"
@@ -34,10 +38,23 @@
         <v-icon right>exit_to_app</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-navigation-drawer class="grey lighten-1" app absolute temporary v-model="drawer">
+    <v-navigation-drawer
+      style="opacity: 0.6"
+      class="grey lighten-1"
+      app
+      absolute
+      temporary
+      v-model="drawer"
+    >
       <v-list>
         <v-list-tile>
-          <input class="toolbarSearch" style="width:100%" type="text" placeholder="Search..">
+          <input
+            class="toolbarSearch"
+            style="width:100%"
+            v-model="searchInput"
+            type="text"
+            placeholder="Search.."
+          >
         </v-list-tile>
         <v-list-tile>
           <v-btn
@@ -65,7 +82,8 @@ export default {
   name: "Navbar",
   props: ["genres"],
   data: () => ({
-    drawer: false
+    drawer: false,
+    searchInput: ""
   }),
   methods: {
     logout() {
@@ -78,6 +96,11 @@ export default {
     },
     filterMovies(genre) {
       this.$store.commit("setMovie", genre);
+    }
+  },
+  watch: {
+    searchInput: function(newVal) {
+      this.$store.commit("getSearch", newVal);
     }
   }
 };

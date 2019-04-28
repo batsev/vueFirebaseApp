@@ -1,7 +1,7 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <Nav/>
-    <Navbar/>
+    <Navbar v-bind:genres="null"/>
     <v-card style="margin-top: 1rem;">
       <v-card-text>
         <div class="movieContext">

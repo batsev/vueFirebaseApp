@@ -1,14 +1,21 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <Nav/>
-    <Navbar/>
+    <Navbar v-bind:genres="null"/>
     <div style="text-align: center; padding-top: 2rem;">
-      <span style="font-size: 3rem; font-style: italic;">Moderator Dashboard</span>
+      <span style="font-size: 3rem; font-style: italic;">Add A Movie!</span>
     </div>
     <v-form style="justify-content: flex-start;">
       <v-text-field class="formInput" v-model="movie_id" label="Movie ID" required></v-text-field>
       <v-text-field class="formInput" v-model="name" label="Name" required></v-text-field>
-      <v-text-field :rules="genreRules" class="formInput" v-model="genre" label="Genre" required></v-text-field>
+      <v-text-field
+        :rules="genreRules"
+        class="formInput"
+        value="Example"
+        v-model="genre"
+        label="Genre"
+        required
+      ></v-text-field>
       <v-slider
         label="Movie rating"
         max="5"
@@ -44,7 +51,9 @@ export default {
     rating: 5,
     img_url: "",
     genreRules: [
-      v => /^[a-zA-Z\s\,]*$/.test(v) || "Genres should be divided by comma"
+      v =>
+        /^[a-zA-Z][a-zA-Z\s\,]*[a-zA-Z]$/.test(v) ||
+        "Genres should be divided by comma"
     ]
   }),
   methods: {
