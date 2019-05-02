@@ -19,7 +19,7 @@
       <v-slider
         label="Movie rating"
         max="5"
-        style="width: 50%; flex: none !important;"
+        class="mySlider"
         step="0.1"
         thumb-label="always"
         v-model="rating"
@@ -83,8 +83,16 @@ export default {
   margin: 10px 0;
 }
 
+.mySlider {
+  width: 50%;
+  flex: none !important;
+}
+
 @media (max-width: 768px) {
   .formInput {
+    width: 90%;
+  }
+  .mySlider {
     width: 90%;
   }
 }

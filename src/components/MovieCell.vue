@@ -1,19 +1,14 @@
 <template>
   <div class="myCell">
     <p class="movieTitle" @click="goTo(movie.movie_id)">{{movie.name}}</p>
-    <v-img
-      @click="goTo(movie.movie_id)"
-      style="grid-row:2/6; cursor: pointer; width: 100%"
-      width="125"
-      :src="movie.img_url"
-    ></v-img>
+    <v-img @click="goTo(movie.movie_id)" width="150" contain class="imgMovie" :src="movie.img_url"></v-img>
     <div>
       <div class="stars-outer">
         <div class="stars-inner" :style="width"></div>
       </div>
     </div>
-    <p style="opacity: 0.7; grid-column: 2/3; margin-left: 1rem; padding-top: 1rem;">{{movie.about}}</p>
-    <p style="opacity: 0.4; grid-column: 2/3; text-align: right; grid-row: 5;">{{movie.genre}}</p>
+    <p class="movieAbout">{{movie.about}}</p>
+    <p class="movieGenre">{{movie.genre}}</p>
   </div>
 </template>
 
@@ -44,6 +39,23 @@ export default {
   margin: 0 1.5rem;
   display: grid;
   grid-template-columns: 1fr 3fr;
+}
+.imgMovie {
+  grid-row: 2/6;
+  cursor: pointer;
+  width: 100%;
+}
+.movieAbout {
+  opacity: 0.7;
+  grid-column: 2/3;
+  margin-left: 1rem;
+  padding-top: 1rem;
+}
+.movieGenre {
+  opacity: 0.4;
+  grid-column: 2/3;
+  text-align: right;
+  grid-row: 5;
 }
 
 .movieTitle {
@@ -85,5 +97,11 @@ export default {
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   color: #f8ce0b;
+}
+@media (max-width: 768px) {
+  .myCell {
+    padding: 0.7rem;
+    margin: 0;
+  }
 }
 </style>

@@ -2,15 +2,15 @@
   <v-container fluid>
     <Nav/>
     <Navbar v-bind:genres="null"/>
-    <v-card style="margin-top: 1rem;">
+    <v-card class="myMovieCard">
       <v-card-text>
         <div class="movieContext">
-          <v-img style="grid-row:1/6;" width="225" :src="img_url"></v-img>
+          <v-img class="cardImage" width="225" :src="img_url"></v-img>
           <div class="movieHeader">
             <p class="viewMovieTitle">{{name}}</p>
             <div style="display: inline-block;">
               <v-icon style="position: relative; left: 12px;" large color="yellow">star</v-icon>
-              <span class="viewMovieTitle">
+              <span class="ratingMovie">
                 {{rating}}
                 <span
                   style="color: #ccc; font-size:1rem; position: relative; right: 10px;"
@@ -18,24 +18,17 @@
               </span>
             </div>
           </div>
-          <div style="grid-column: 2;grid-row:2; padding-left:2rem;">
-            <span style="font-size: 2rem; font-weight: bold">Genre:</span>
+          <div class="genreAndAbout">
+            <span class="genreAboutTitle">Genre:</span>
             <p>{{genre}}</p>
-            <span style="font-size: 2rem; font-weight: bold">About:</span>
+            <span class="genreAboutTitle">About:</span>
             <p>{{about}}</p>
           </div>
         </div>
+        <div style="text-align:center;">
+          <v-btn class="myCardButton" :to="`/edit/${movie_id}`" color="orange darken-2" dark>Edit</v-btn>
+        </div>
       </v-card-text>
-      <v-btn
-        style="position: absolute; right:0.8rem; top:1rem;"
-        :to="`/edit/${movie_id}`"
-        color="orange darken-2"
-        dark
-        small
-        fab
-      >
-        <v-icon dark>edit</v-icon>
-      </v-btn>
     </v-card>
   </v-container>
 </template>
@@ -100,6 +93,20 @@ export default {
 </script>
 
 <style>
+.genreAboutTitle {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+.myMovieCard {
+  margin-top: 1rem;
+}
+.cardImage {
+  grid-row: 1/6;
+}
+.genreAndAbout {
+  grid-column: 2;
+  grid-row: 2;
+}
 .movieHeader {
   background-color: #333333;
   padding: 1rem 0;
@@ -112,7 +119,13 @@ export default {
 }
 .viewMovieTitle {
   color: white;
-  font-size: 2.5rem;
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+.ratingMovie {
+  color: white;
+  font-size: 2rem;
   font-family: Arial, Helvetica, sans-serif;
 }
 .movieContext {
@@ -120,5 +133,36 @@ export default {
   grid-template-columns: 1fr 6fr;
   grid-column-gap: 1rem;
   font-size: 1.5rem;
+}
+@media (max-width: 640px) {
+  .movieContext {
+    font-size: 1rem;
+    grid-row-gap: 1rem;
+  }
+  .viewMovieTitle {
+    font-size: 1.4rem;
+  }
+  .genreAboutTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  .genreAndAbout {
+    grid-column: 1/3;
+    grid-row: 3;
+  }
+  .cardImage {
+    grid-column: 1/3;
+    grid-row: 2;
+    display: block;
+    margin: auto;
+  }
+  .movieHeader {
+    grid-column: 1/3;
+    grid-row: 1;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0.5rem;
+  }
 }
 </style>
