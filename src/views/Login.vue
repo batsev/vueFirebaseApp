@@ -2,7 +2,7 @@
   <div>
     <LoginRegisterComp
       msg1="Login"
-      msg2="Already have account?"
+      msg2="Don't have account?"
       msg3="/register"
       v-on:pass-values="catchValues"
     />
